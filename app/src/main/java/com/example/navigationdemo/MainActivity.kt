@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.navigationdemo.ui.theme.NavigationDemoTheme
 import androidx.navigation3.runtime.NavKey
-import androidx.navigation3.runtime.entry
+
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
@@ -48,7 +48,10 @@ fun MainScreen(modifier: Modifier = Modifier) {
     }
     NavDisplay(
         backStack = backStack,
-        onBack = { backStack.removeLastOrNull() },
+        onBack = { while (backStack.size > 1) {
+            backStack.removeLastOrNull()
+        }
+        },
         entryProvider = entryProvider {
             entry<HomeScreen> {
                 Home(onNavigation)
